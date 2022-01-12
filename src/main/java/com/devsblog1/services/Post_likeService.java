@@ -1,4 +1,4 @@
-package com.devsblog1.services.serviceImplementation;
+package com.devsblog1.services;
 
 import com.devsblog1.model.Post_Likes;
 import org.springframework.stereotype.Service;
