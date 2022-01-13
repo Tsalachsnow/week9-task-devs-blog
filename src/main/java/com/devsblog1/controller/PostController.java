@@ -1,7 +1,7 @@
 package com.devsblog1.controller;
 
 import com.devsblog1.model.PostDto;
-import com.devsblog1.model.PostResponse;
+import com.devsblog1.model.Response;
 import com.devsblog1.model.Posts;
 import com.devsblog1.model.Users;
 import com.devsblog1.services.serviceImplementation.PostServiceImpl;
@@ -12,8 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import static java.awt.SystemColor.text;
 
 @RestController
 public class PostController {
@@ -29,14 +27,14 @@ public class PostController {
     }
 
     @PostMapping("/makes/{id}")
-    public ResponseEntity<PostResponse> makePost(@RequestBody PostDto posts, @PathVariable Long id){
+    public ResponseEntity<Response> makePost(@RequestBody PostDto posts, @PathVariable Long id){
        Users users1 =  userServiceImpl.findById(id).get();
        if(users1 != null){
           postServiceImpl.makePost(id,posts);
-          PostResponse postResponse = new PostResponse();
-          postResponse.setResponse("This text "+ posts.getTitle() + " this content " + posts.getContent() + " is saved") ;
+          Response response = new Response();
+          response.setResponse("This text "+ posts.getTitle() + " this content " + posts.getContent() + " is saved") ;
 //           return posts+ " saved";
-           return new ResponseEntity<>(postResponse, HttpStatus.CREATED);
+           return new ResponseEntity<>(response, HttpStatus.CREATED);
        }
  return null;
     }

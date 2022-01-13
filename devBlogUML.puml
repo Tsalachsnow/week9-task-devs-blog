@@ -1,0 +1,273 @@
+@startuml
+class com.devsblog1.services.serviceImplementation.UserServiceImplTest {
+- UserRepository userRepository
+- UserServiceImpl userServiceImpl
+~ void testConstructor()
+~ void testFindById()
+~ void testSaveUser()
+~ void testAuthenticate()
+}
+interface com.devsblog1.services.UserService {
+~ List<Users> findAllUsers()
+~ Optional<Users> findById(Long)
+~ Users saveUser(Users)
+~ Users authenticate(String,String)
+}
+class com.devsblog1.services.serviceImplementation.UserServiceImpl {
+- UserRepository userRepository
++ List<Users> findAllUsers()
++ Optional<Users> findById(Long)
++ Users saveUser(Users)
++ Users authenticate(String,String)
+}
+class com.devsblog1.DevsBlog1Application {
++ {static} void main(String[])
+}
+class com.devsblog1.controller.CommentController {
+~ CommentServiceImpl commentServiceImpl
+~ PostServiceImpl postServiceImpl
+~ UserServiceImpl userServiceImpl
++ ResponseEntity<PostResponse> makeComment(CommentDto,Long,Long)
++ ResponseEntity<PostResponse> editPost(CommentDto,Long,Long,Long)
++ Optional<Comments> getCommentById(Long)
++ List<Comments> getCommentLists()
++ String DeleteById(Long)
++ ResponseEntity<?> deleteAll(CommentDto)
+}
+class com.devsblog1.controller.Post_LikeController {
+~ Post_LikeImpl post_likeImpl
+~ PostServiceImpl postServiceImpl
++ ResponseEntity<?> getLikesByPostId(Long,Post_Likes)
++ ResponseEntity<?> decrementLikes(Long,Post_Likes)
+}
+class com.devsblog1.model.Comment_Likes {
+- Long id
+- Users users
+- Comments comments
+}
+interface com.devsblog1.services.PostService {
+~ Optional<Posts> findById(Long)
+~ boolean editPost(Users,Long,String,String)
+~ void makePost(Long,PostDto)
+~ List<Posts> findAllPosts()
+~ void deletePostById(Long)
+}
+interface com.devsblog1.repositories.PostRepository {
+}
+interface com.devsblog1.repositories.UserRepository {
+~ Users findByEmailAndPassword(String,String)
+~ Optional<Users> findFirstByEmail(String)
+~ Users findByEmail(String)
+}
+class com.devsblog1.services.serviceImplementation.CommentServiceImplTest {
+- CommentRepository commentRepository
+- CommentServiceImpl commentServiceImpl
+- PostRepository postRepository
+- UserRepository userRepository
+~ void testFindById()
+~ void testCreateComment()
+~ void testCreateComment2()
+~ void testCreateComment3()
+~ void testEditComment()
+~ void testFindAllComments()
+~ void testDeleteCommentById()
+~ void testDeleteAll()
+}
+class com.devsblog1.services.serviceImplementation.Post_LikeImpl {
+~ Post_LikesRepository post_likes_repository
++ void create(Post_Likes)
++ void deleteById(Long)
+}
+class com.devsblog1.ServletInitializer {
+# SpringApplicationBuilder configure(SpringApplicationBuilder)
+}
+class com.devsblog1.model.PostDto {
+~ String title
+~ String content
+}
+class com.devsblog1.model.CommentDto {
+- String comment
+}
+interface com.devsblog1.services.Post_likeService {
+~ void create(Post_Likes)
+}
+class com.devsblog1.model.Users {
+- Long id
+- String name
+- String email
+- String password
+- String gender
+- List<Posts> favoritePosts
+- List<Post_Likes> post_likes
+- List<Comment_Likes> comment_likes
++ void setFavoritePosts(List<Posts>)
++ List<Posts> getFavoritePosts()
++ Long getId()
++ void setId(Long)
++ String getName()
++ void setName(String)
++ String getEmail()
++ void setEmail(String)
++ String getPassword()
++ void setPassword(String)
++ String getGender()
++ void setGender(String)
+}
+class com.devsblog1.controller.UserController {
+~ UserServiceImpl userServiceimpl
++ Users save(Users)
++ String login(Users)
+}
+class com.devsblog1.services.serviceImplementation.CommentServiceImpl {
+~ CommentRepository commentRepository
+~ PostRepository postRepository
+~ UserRepository userRepository
++ Optional<Comments> findById(Long)
++ void createComment(Long,Long,CommentDto)
++ void editComment(CommentDto,Long,Long,Users)
++ List<Comments> findAllComments()
++ void deleteCommentById(Long)
++ void deleteAll(CommentDto)
+}
+class com.devsblog1.controller.UserControllerTest {
+- UserController userController
+- UserServiceImpl userServiceImpl
+~ void testLogin()
+~ void testSave()
+}
+class com.devsblog1.services.serviceImplementation.PostServiceImplTest {
+- PostRepository postRepository
+- PostServiceImpl postServiceImpl
+- UserRepository userRepository
+~ void testEditPost()
+~ void testMakePost()
+~ void testFindAllPosts()
+~ void testDeletePostById()
+~ void testFindById()
+}
+interface com.devsblog1.repositories.CommentRepository {
+}
+class com.devsblog1.controller.CommentControllerTest {
+- CommentController commentController
+- CommentServiceImpl commentServiceImpl
+- PostServiceImpl postServiceImpl
+- UserServiceImpl userServiceImpl
+~ void testDeleteAll()
+~ void testDeleteById()
+~ void testDeleteById2()
+~ void testEditPost()
+~ void testGetCommentById()
+~ void testGetCommentLists()
+~ void testMakeComment()
+}
+class com.devsblog1.services.serviceImplementation.PostServiceImpl {
+~ PostRepository postRepository
+~ UserRepository userRepository
++ boolean editPost(Users,Long,String,String)
++ void makePost(Long,PostDto)
++ List<Posts> findAllPosts()
++ void deletePostById(Long)
++ Optional<Posts> findById(Long)
+}
+class com.devsblog1.DevsBlog1ApplicationTests {
+~ void contextLoads()
+}
+class com.devsblog1.model.Comments {
+- Long id
+- String comment
+- Users users1
+- Posts posts
+}
+class com.devsblog1.model.Post_Likes {
+- Long id
+- int likes
+- Posts posts
+- Users users
+}
+class com.devsblog1.services.serviceImplementation.Post_LikeImplTest {
+- Post_LikeImpl post_LikeImpl
+- Post_LikesRepository post_LikesRepository
+~ void testCreate()
+~ void testDeleteById()
+}
+class com.devsblog1.model.Posts {
+- Long id
+- String title
+- String content
+- Users users
+- List<Comments> comments
+}
+class MavenWrapperDownloader {
+- {static} String WRAPPER_VERSION
+- {static} String DEFAULT_DOWNLOAD_URL
+- {static} String MAVEN_WRAPPER_PROPERTIES_PATH
+- {static} String MAVEN_WRAPPER_JAR_PATH
+- {static} String PROPERTY_NAME_WRAPPER_URL
++ {static} void main(String[])
+- {static} void downloadFileFromURL(String,File)
+}
+interface com.devsblog1.services.CommentService {
+~ Optional<Comments> findById(Long)
+~ void createComment(Long,Long,CommentDto)
+~ void editComment(CommentDto,Long,Long,Users)
+~ List<Comments> findAllComments()
+~ void deleteCommentById(Long)
+~ void deleteAll(CommentDto)
+}
+class com.devsblog1.model.PostResponse {
+~ String response
+}
+class com.devsblog1.controller.PostControllerTest {
+- PostController postController
+- PostServiceImpl postServiceImpl
+- UserServiceImpl userServiceImpl
+~ void testMakePost()
+~ void testMakePost2()
+~ void testMakePost3()
+~ void testDeleteById()
+~ void testEditPost()
+~ void testEditPost2()
+~ void testEditPost3()
+~ void testEditPost4()
+~ void testDeleteById2()
+~ void testGetPostById()
+~ void testGetPostLists()
+~ void testGetPostLists2()
+}
+class com.devsblog1.controller.Post_LikeControllerTest {
+- PostServiceImpl postServiceImpl
+- Post_LikeController post_LikeController
+- Post_LikeImpl post_LikeImpl
+~ void testDecrementLikes()
+~ void testGetLikesByPostId()
+}
+interface com.devsblog1.repositories.Post_LikesRepository {
+}
+class com.devsblog1.controller.PostController {
+~ Users user1
+~ PostServiceImpl postServiceImpl
+~ UserServiceImpl userServiceImpl
++ ResponseEntity<PostResponse> makePost(PostDto,Long)
++ String editPost(PostDto,Long,Long)
++ Optional<Posts> getPostById(Long)
++ List<Posts> getPostLists()
++ String DeleteById(Long)
+}
+abstract class com.devsblog1.model.TimeStamp {
+- Date createdAt
+- Date updatedAt
+}
+
+
+com.devsblog1.services.UserService <|.. com.devsblog1.services.serviceImplementation.UserServiceImpl
+org.springframework.data.jpa.repository.JpaRepository <|-- com.devsblog1.repositories.PostRepository
+org.springframework.data.jpa.repository.JpaRepository <|-- com.devsblog1.repositories.UserRepository
+com.devsblog1.services.Post_likeService <|.. com.devsblog1.services.serviceImplementation.Post_LikeImpl
+org.springframework.boot.web.servlet.support.SpringBootServletInitializer <|-- com.devsblog1.ServletInitializer
+com.devsblog1.services.CommentService <|.. com.devsblog1.services.serviceImplementation.CommentServiceImpl
+org.springframework.data.jpa.repository.JpaRepository <|-- com.devsblog1.repositories.CommentRepository
+com.devsblog1.services.PostService <|.. com.devsblog1.services.serviceImplementation.PostServiceImpl
+com.devsblog1.model.TimeStamp <|-- com.devsblog1.model.Comments
+com.devsblog1.model.TimeStamp <|-- com.devsblog1.model.Posts
+org.springframework.data.jpa.repository.JpaRepository <|-- com.devsblog1.repositories.Post_LikesRepository
+@enduml

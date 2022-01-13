@@ -25,12 +25,12 @@ public class CommentController {
         this.userServiceImpl = userServiceImpl;
     }
     @PostMapping(path = "/makeComment/{id}/{postId}")
-    public ResponseEntity<PostResponse> makeComment(@RequestBody CommentDto comment, @PathVariable Long id, @PathVariable Long postId){
+    public ResponseEntity<Response> makeComment(@RequestBody CommentDto comment, @PathVariable Long id, @PathVariable Long postId){
         Users user1 = userServiceImpl.findById(id).get();
         if(user1 != null){
 //            System.out.println("i am here now======");
                 commentServiceImpl.createComment(id,postId,comment);
-            PostResponse commentResponse = new PostResponse();
+            Response commentResponse = new Response();
             commentResponse.setResponse(comment + " made by "+user1.getName()+" created successfully");
             return new ResponseEntity<>(commentResponse, HttpStatus.CREATED);
         }
@@ -38,13 +38,13 @@ public class CommentController {
     }
 
     @PutMapping("edit/{commentId}/posts/{postId}/users/{userId}")
-    public ResponseEntity<PostResponse> editPost(@RequestBody CommentDto comments, @PathVariable("commentId")Long commentId,
-                           @PathVariable("postId")Long postId, @PathVariable Long userId) {
+    public ResponseEntity<Response> editPost(@RequestBody CommentDto comments, @PathVariable("commentId")Long commentId,
+                                             @PathVariable("postId")Long postId, @PathVariable Long userId) {
         Users users = userServiceImpl.findById(userId).get();
         commentServiceImpl.editComment(comments, commentId, postId,users);
 
         commentServiceImpl.editComment(comments, commentId, postId, users);
-            PostResponse commentResponse = new PostResponse();
+            Response commentResponse = new Response();
             commentResponse.setResponse(comments + " was edited successfully");
             return new ResponseEntity<>(commentResponse, HttpStatus.OK);
 
@@ -70,7 +70,7 @@ public class CommentController {
     public ResponseEntity<?> deleteAll(@RequestBody CommentDto comments){
         if (comments != null) {
             commentServiceImpl.deleteAll(comments);
-            PostResponse commentResponse = new PostResponse();
+            Response commentResponse = new Response();
             commentResponse.setResponse("comment deleted successfully") ;
             return new ResponseEntity<>(commentResponse, HttpStatus.OK);
         }

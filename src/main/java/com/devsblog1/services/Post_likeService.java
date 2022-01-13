@@ -7,4 +7,5 @@ import org.springframework.stereotype.Service;
 public interface Post_likeService {
 
     void create(Post_Likes postlks);
+    void findById(Long id1);
 }

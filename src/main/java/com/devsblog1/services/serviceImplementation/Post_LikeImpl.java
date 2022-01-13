@@ -20,4 +20,8 @@ public class Post_LikeImpl implements Post_likeService {
     public void deleteById(Long id) {
         post_likes_repository.deleteById(id);
     }
+
+    public void findById(Long id1) {
+        post_likes_repository.getById(id1);
+    }
 }

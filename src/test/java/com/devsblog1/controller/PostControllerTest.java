@@ -9,7 +9,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.devsblog1.model.PostDto;
-import com.devsblog1.model.PostResponse;
+import com.devsblog1.model.Response;
 import com.devsblog1.model.Posts;
 import com.devsblog1.model.Users;
 import com.devsblog1.repositories.PostRepository;
@@ -91,7 +91,7 @@ class PostControllerTest {
         UserRepository userRepository1 = mock(UserRepository.class);
         when(userRepository1.findById((Long) any())).thenReturn(Optional.of(users2));
         PostController postController = new PostController(postServiceImpl, new UserServiceImpl(userRepository1));
-        ResponseEntity<PostResponse> actualMakePostResult = postController
+        ResponseEntity<Response> actualMakePostResult = postController
                 .makePost(new PostDto("Dr", "Not all who wander are lost"), 123L);
         assertEquals("<201 CREATED Created,PostResponse(response=This text Dr this content Not all who wander are lost is"
                 + " saved),[]>", actualMakePostResult.toString());
@@ -121,7 +121,7 @@ class PostControllerTest {
         UserRepository userRepository = mock(UserRepository.class);
         when(userRepository.findById((Long) any())).thenReturn(Optional.of(users));
         PostController postController = new PostController(postServiceImpl, new UserServiceImpl(userRepository));
-        ResponseEntity<PostResponse> actualMakePostResult = postController
+        ResponseEntity<Response> actualMakePostResult = postController
                 .makePost(new PostDto("Dr", "Not all who wander are lost"), 123L);
         assertEquals("<201 CREATED Created,PostResponse(response=This text Dr this content Not all who wander are lost is"
                 + " saved),[]>", actualMakePostResult.toString());
@@ -150,7 +150,7 @@ class PostControllerTest {
         UserServiceImpl userServiceImpl = mock(UserServiceImpl.class);
         when(userServiceImpl.findById((Long) any())).thenReturn(Optional.of(users));
         PostController postController = new PostController(postServiceImpl, userServiceImpl);
-        ResponseEntity<PostResponse> actualMakePostResult = postController
+        ResponseEntity<Response> actualMakePostResult = postController
                 .makePost(new PostDto("Dr", "Not all who wander are lost"), 123L);
         assertEquals("<201 CREATED Created,PostResponse(response=This text Dr this content Not all who wander are lost is"
                 + " saved),[]>", actualMakePostResult.toString());
